@@ -7,6 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { MaterialModule } from "./shared/material.module";
 import { DemoComponent } from "./components/demo/demo.component";
+import { MaskDirective } from "./shared/directives/mask.directive";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { DemoComponent } from "./components/demo/demo.component";
     HttpClientModule,
     MaterialModule
   ],
-  declarations: [AppComponent, DemoComponent],
+  declarations: [AppComponent, DemoComponent, MaskDirective],
+  exports: [MaskDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
