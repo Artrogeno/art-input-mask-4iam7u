@@ -7,20 +7,19 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { MaterialModule } from "./shared/material.module";
 import { DemoComponent } from "./components/demo/demo.component";
-import { MaskDirective } from "./shared/directives/mask.directive";
+import { NgxMaskDirective } from "./shared/directives/ngx-mask.directive";
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule
   ],
-  declarations: [AppComponent, DemoComponent, MaskDirective],
-  exports: [MaskDirective],
+  declarations: [AppComponent, DemoComponent, NgxMaskDirective],
+  exports: [NgxMaskDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
