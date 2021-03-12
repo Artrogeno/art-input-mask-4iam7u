@@ -7,8 +7,9 @@
       <input
         matInput
         formControlName="phone"
-        placeholder="+0 (000) 000-0000"
-        ngxMask="+9 (999) 999-9999">
+        [placeholder]="inputMask.placeholder"
+        [ngxMask]="inputMask.mask">
+      <mat-hint>{{ phone }}</mat-hint>
     </mat-form-field>
   </form>
 </section>

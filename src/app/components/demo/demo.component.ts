@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 
+import { IMask } from "../../shared/interfaces/mask";
+
 @Component({
   selector: "app-demo",
   templateUrl: "./demo.component.html",
@@ -8,6 +10,13 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 })
 export class DemoComponent implements OnInit {
   public formDemo: FormGroup;
+
+  public phone: string | number;
+
+  public inputMask: IMask = {
+    mask: "+9 (999) 999-9999",
+    placeholder: "+0 (000) 000-0000"
+  };
 
   constructor(private fb: FormBuilder) {}
 
@@ -18,8 +27,8 @@ export class DemoComponent implements OnInit {
 
     setTimeout(() => this.updateForm(), 1000);
 
-    this.formDemo.controls.phone.valueChanges.subscribe(val =>
-      console.log(val)
+    this.formDemo.controls.phone.valueChanges.subscribe(
+      phone => (this.phone = phone)
     );
   }
 

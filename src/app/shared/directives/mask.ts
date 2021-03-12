@@ -48,3 +48,10 @@ export function unmask(maskedValue: string, mask: string): string {
     .filter((currChar, idx) => idx < maskLen && REGEX_MAP.has(mask[idx]))
     .join("");
 }
+
+export function validLength(mask: string): number {
+  return mask
+    .split("")
+    .filter((str, i) => REGEX_MAP.has(mask[i]))
+    .join("").length;
+}

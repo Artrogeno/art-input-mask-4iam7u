@@ -24,10 +24,20 @@ export class NgxMaskDirective {
   }
 
   onInputChange(event, backspace) {
-    let newVal = event.replace(/\D/g, "");
-    newVal = MASK.mask(newVal, this.ngxMask);
+    let val = event.replace(/\D/g, "");
+    const mask = (value: any) => MASK.mask(value, this.ngxMask);
+    const unmask = (value: any) => MASK.unmask(value, this.ngxMask);
+    const validLength = MASK.validLength(this.ngxMask);
 
-    console.log(this.ngxMask);
-    this.ngControl.valueAccessor.writeValue(newVal);
+    this.ngControl.valueAccessor.writeValue(mask(val));
+
+    this.ngControl.valueAccessor.registerOnChange((val: any) => {
+      // if (validLength === unmask(val).length) { }
+      this.ngControl.control.setValue(unmask(val), {
+        emitEvent: TextTrackCueList
+      });
+      this.ngControl.valueAccessor.writeValue(mask(val));
+      return mask(val);
+    });
   }
 }
