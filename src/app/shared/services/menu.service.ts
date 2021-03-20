@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class MenuService {
   protected menuSource = new BehaviorSubject(false);
   menuCurrent = this.menuSource.asObservable();
