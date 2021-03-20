@@ -4,10 +4,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
+import { SharedModule } from "./shared/shared.module";
 import { AppComponent } from "./app.component";
-import { MaterialModule } from "./shared/material.module";
 import { DemoComponent } from "./components/demo/demo.component";
-import { NgxMaskDirective } from "./shared/directives/ngx-mask.directive";
 
 @NgModule({
   imports: [
@@ -16,10 +15,9 @@ import { NgxMaskDirective } from "./shared/directives/ngx-mask.directive";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    SharedModule
   ],
-  declarations: [AppComponent, DemoComponent, NgxMaskDirective],
-  exports: [NgxMaskDirective],
+  declarations: [AppComponent, DemoComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
