@@ -14,8 +14,8 @@ export class AppComponent {
   menu: boolean;
 
   constructor(private menuService: MenuService) {
-    this.menuService.menuCurrent.subscribe((menu: boolean) => {
-      this.menu = menu;
+    this.menuService.menuCurrent.subscribe(({ isOpen }: boolean) => {
+      this.menu = isOpen;
     });
   }
 }
