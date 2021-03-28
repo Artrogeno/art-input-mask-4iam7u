@@ -1,4 +1,4 @@
-import { Directive, HostListener, Input } from "@angular/core";
+import { Directive, HostListener, Input, OnInit } from "@angular/core";
 import { NgControl } from "@angular/forms";
 import * as MASK from "./mask";
 
@@ -8,7 +8,7 @@ import * as MASK from "./mask";
 @Directive({
   selector: "[ngxMask]"
 })
-export class NgxMaskDirective {
+export class NgxMaskDirective implements OnInit {
   @Input("ngxMask") ngxMask: string;
 
   constructor(public ngControl: NgControl) {}
@@ -21,6 +21,26 @@ export class NgxMaskDirective {
   @HostListener("keydown.backspace", ["$event"])
   keydownBackspace(event) {
     this.onInputChange(event.target.value, true);
+  }
+
+  ngOnInit() {
+    if (!this.ngControl || !this.ngControl.valueAccessor) {
+      return;
+    }
+    const originalWriteVal = this.ngControl.valueAccessor.writeValue.bind(
+      this.ngControl.valueAccessor
+    );
+    this.ngControl.valueAccessor.writeValue = (val: any) =>
+      originalWriteVal(MASK.mask(val, this.ngxMask));
+
+    const originalChange = (<any>this.ngControl.valueAccessor)["onChange"].bind(
+      this.ngControl.valueAccessor
+    );
+    this.ngControl.valueAccessor.registerOnChange((val: any) =>
+      originalChange(MASK.unmask(val, this.ngxMask))
+    );
+
+    this._setVal(MASK.mask(this.ngControl.value || "", this.ngxMask));
   }
 
   onInputChange(event, backspace) {
@@ -39,5 +59,11 @@ export class NgxMaskDirective {
       this.ngControl.valueAccessor.writeValue(mask(val));
       return mask(val);
     });
+  }
+
+  private _setVal(val: string) {
+    if (this.ngControl.control) {
+      this.ngControl.control.setValue(val, { emitEvent: false });
+    }
   }
 }
